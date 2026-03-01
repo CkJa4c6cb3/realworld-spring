@@ -1,0 +1,34 @@
+# OS
+.DS_Store
+
+# Maven / Gradle
+**/target/
+**/build/
+.gradle/
+
+# Java
+*.class
+out/
+bin/
+
+# IDEs
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.factorypath
+.springBeans
+.sts4-cache/
+.vscode/
+
+# Logs and runtime files
+*.log
+logs/
+*.pid
+*.pid.lock
+*.seed
+
+# Local environment files
+.env
+.env.*
