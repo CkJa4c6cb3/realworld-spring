@@ -6,6 +6,7 @@ https://github.com/realworld-apps/realworld を元にSpring Bootでバックエ�
 
 ## お願い
 
+必ず日本語で回答するようにしてください。
 私はJavaおよびSpringを勉強中です。基本的なことから説明してください。
 質問があった場合は、ベストプラクティスに従って実装を提案してください。
 
