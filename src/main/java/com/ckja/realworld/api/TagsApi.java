@@ -6,7 +6,7 @@
 package com.ckja.realworld.api;
 
 import com.ckja.realworld.model.GenericErrorModel;
-import com.ckja.realworld.model.InlineObject;
+import com.ckja.realworld.model.TagsResponse;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -58,7 +58,7 @@ public interface TagsApi {
         tags = { "Tags" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Tags", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = TagsResponse.class))
             }),
             @ApiResponse(responseCode = "422", description = "Unexpected error", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -70,14 +70,14 @@ public interface TagsApi {
         value = TagsApi.PATH_GET_TAGS,
         produces = { "application/json" }
     )
-    default ResponseEntity<InlineObject> _getTags(
+    default ResponseEntity<TagsResponse> _getTags(
         
     ) {
         return getTags();
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject> getTags() {
+    default  ResponseEntity<TagsResponse> getTags() {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
