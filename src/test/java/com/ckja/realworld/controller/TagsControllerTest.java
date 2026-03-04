@@ -15,7 +15,7 @@ class TagsControllerTest {
 
   @Test
   void getTagsReturnsTagsResponse() throws Exception {
-    TagService tagService = new TagService(null) {
+    TagService tagService = new TagService() {
       @Override
       public List<String> getTags() {
         return List.of("java", "spring");

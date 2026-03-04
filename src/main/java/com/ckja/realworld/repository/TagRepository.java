@@ -1,5 +1,6 @@
 package com.ckja.realworld.repository;
 
+import com.ckja.realworld.model.Tag;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,9 +14,9 @@ public class TagRepository {
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  public List<String> findAllNames() {
-    return jdbcTemplate.queryForList(
+  public List<Tag> findAll() {
+    return jdbcTemplate.query(
         "SELECT name FROM tags ORDER BY name ASC",
-        String.class);
+        (rs, rowNum) -> new Tag(rs.getString("name")));
   }
 }
