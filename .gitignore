@@ -21,6 +21,7 @@ bin/
 .springBeans
 .sts4-cache/
 .vscode/
+.serena/
 
 # Logs and runtime files
 *.log

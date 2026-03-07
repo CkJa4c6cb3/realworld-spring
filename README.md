@@ -99,3 +99,8 @@ mvn test
 ## 補足
 
 現在の初期スキーマは `V1__create_initial_schema.sql` で作成され、`users`、`articles`、`comments`、`tags` と、それらをつなぐ中間テーブルを含みます。
+
+## 実行方法
+
+mvn spring-boot:run
+curl http://localhost:8080/{path}
