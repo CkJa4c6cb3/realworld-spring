@@ -7,8 +7,8 @@ package com.ckja.realworld.api;
 
 import com.ckja.realworld.model.CreateArticleCommentRequest;
 import com.ckja.realworld.model.GenericErrorModel;
-import com.ckja.realworld.model.InlineObject1;
-import com.ckja.realworld.model.InlineObject2;
+import com.ckja.realworld.model.SingleCommentResponse;
+import com.ckja.realworld.model.MultipleCommentsResponse;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -64,7 +64,7 @@ public interface CommentsApi {
         tags = { "Comments" },
         responses = {
             @ApiResponse(responseCode = "201", description = "Single comment", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject1.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = SingleCommentResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -86,7 +86,7 @@ public interface CommentsApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<InlineObject1> _createArticleComment(
+    default ResponseEntity<SingleCommentResponse> _createArticleComment(
         @NotNull @Parameter(name = "slug", description = "Slug of the article that you want to create a comment for", required = true, in = ParameterIn.PATH) @PathVariable("slug") String slug,
         @Parameter(name = "comment", description = "Comment you want to create", required = true) @Valid @RequestBody CreateArticleCommentRequest comment
     ) {
@@ -94,7 +94,7 @@ public interface CommentsApi {
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject1> createArticleComment(String slug, CreateArticleCommentRequest comment) {
+    default  ResponseEntity<SingleCommentResponse> createArticleComment(String slug, CreateArticleCommentRequest comment) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -222,7 +222,7 @@ public interface CommentsApi {
         tags = { "Comments" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Multiple comments", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject2.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = MultipleCommentsResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -240,14 +240,14 @@ public interface CommentsApi {
         value = CommentsApi.PATH_GET_ARTICLE_COMMENTS,
         produces = { "application/json" }
     )
-    default ResponseEntity<InlineObject2> _getArticleComments(
+    default ResponseEntity<MultipleCommentsResponse> _getArticleComments(
         @NotNull @Parameter(name = "slug", description = "Slug of the article that you want to get comments for", required = true, in = ParameterIn.PATH) @PathVariable("slug") String slug
     ) {
         return getArticleComments(slug);
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject2> getArticleComments(String slug) {
+    default  ResponseEntity<MultipleCommentsResponse> getArticleComments(String slug) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

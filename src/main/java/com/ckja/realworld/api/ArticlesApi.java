@@ -7,8 +7,8 @@ package com.ckja.realworld.api;
 
 import com.ckja.realworld.model.CreateArticleRequest;
 import com.ckja.realworld.model.GenericErrorModel;
-import com.ckja.realworld.model.InlineObject3;
-import com.ckja.realworld.model.InlineObject4;
+import com.ckja.realworld.model.SingleArticleResponse;
+import com.ckja.realworld.model.MultipleArticlesResponse;
 import org.springframework.lang.Nullable;
 import com.ckja.realworld.model.UpdateArticleRequest;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
@@ -65,7 +65,7 @@ public interface ArticlesApi {
         tags = { "Articles" },
         responses = {
             @ApiResponse(responseCode = "201", description = "Single article", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject3.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = SingleArticleResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -87,14 +87,14 @@ public interface ArticlesApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<InlineObject3> _createArticle(
+    default ResponseEntity<SingleArticleResponse> _createArticle(
         @Parameter(name = "article", description = "Article to create", required = true) @Valid @RequestBody CreateArticleRequest article
     ) {
         return createArticle(article);
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject3> createArticle(CreateArticleRequest article) {
+    default  ResponseEntity<SingleArticleResponse> createArticle(CreateArticleRequest article) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -219,7 +219,7 @@ public interface ArticlesApi {
         tags = { "Articles" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Single article", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject3.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = SingleArticleResponse.class))
             }),
             @ApiResponse(responseCode = "404", description = "Not Found. The error key identifies the resource type (article, profile, comment, etc.)", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -234,14 +234,14 @@ public interface ArticlesApi {
         value = ArticlesApi.PATH_GET_ARTICLE,
         produces = { "application/json" }
     )
-    default ResponseEntity<InlineObject3> _getArticle(
+    default ResponseEntity<SingleArticleResponse> _getArticle(
         @NotNull @Parameter(name = "slug", description = "Slug of the article to get", required = true, in = ParameterIn.PATH) @PathVariable("slug") String slug
     ) {
         return getArticle(slug);
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject3> getArticle(String slug) {
+    default  ResponseEntity<SingleArticleResponse> getArticle(String slug) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -287,7 +287,7 @@ public interface ArticlesApi {
         tags = { "Articles" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Multiple articles", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject4.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = MultipleArticlesResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -302,7 +302,7 @@ public interface ArticlesApi {
         value = ArticlesApi.PATH_GET_ARTICLES,
         produces = { "application/json" }
     )
-    default ResponseEntity<InlineObject4> _getArticles(
+    default ResponseEntity<MultipleArticlesResponse> _getArticles(
         @Parameter(name = "tag", description = "Filter by tag", in = ParameterIn.QUERY) @Valid @RequestParam(value = "tag", required = false) @Nullable String tag,
         @Parameter(name = "author", description = "Filter by author (username)", in = ParameterIn.QUERY) @Valid @RequestParam(value = "author", required = false) @Nullable String author,
         @Parameter(name = "favorited", description = "Filter by favorites of a user (username)", in = ParameterIn.QUERY) @Valid @RequestParam(value = "favorited", required = false) @Nullable String favorited,
@@ -313,7 +313,7 @@ public interface ArticlesApi {
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject4> getArticles(String tag, String author, String favorited, Integer offset, Integer limit) {
+    default  ResponseEntity<MultipleArticlesResponse> getArticles(String tag, String author, String favorited, Integer offset, Integer limit) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -356,7 +356,7 @@ public interface ArticlesApi {
         tags = { "Articles" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Multiple articles", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject4.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = MultipleArticlesResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -374,7 +374,7 @@ public interface ArticlesApi {
         value = ArticlesApi.PATH_GET_ARTICLES_FEED,
         produces = { "application/json" }
     )
-    default ResponseEntity<InlineObject4> _getArticlesFeed(
+    default ResponseEntity<MultipleArticlesResponse> _getArticlesFeed(
         @Min(value = 0) @Parameter(name = "offset", description = "The number of items to skip before starting to collect the result set.", in = ParameterIn.QUERY) @Valid @RequestParam(value = "offset", required = false) @Nullable Integer offset,
         @Min(value = 1) @Parameter(name = "limit", description = "The numbers of items to return.", in = ParameterIn.QUERY) @Valid @RequestParam(value = "limit", required = false, defaultValue = "20") Integer limit
     ) {
@@ -382,7 +382,7 @@ public interface ArticlesApi {
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject4> getArticlesFeed(Integer offset, Integer limit) {
+    default  ResponseEntity<MultipleArticlesResponse> getArticlesFeed(Integer offset, Integer limit) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -427,7 +427,7 @@ public interface ArticlesApi {
         tags = { "Articles" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Single article", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject3.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = SingleArticleResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -452,7 +452,7 @@ public interface ArticlesApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<InlineObject3> _updateArticle(
+    default ResponseEntity<SingleArticleResponse> _updateArticle(
         @NotNull @Parameter(name = "slug", description = "Slug of the article to update", required = true, in = ParameterIn.PATH) @PathVariable("slug") String slug,
         @Parameter(name = "article", description = "Article to update", required = true) @Valid @RequestBody UpdateArticleRequest article
     ) {
@@ -460,7 +460,7 @@ public interface ArticlesApi {
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject3> updateArticle(String slug, UpdateArticleRequest article) {
+    default  ResponseEntity<SingleArticleResponse> updateArticle(String slug, UpdateArticleRequest article) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

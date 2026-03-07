@@ -2,7 +2,7 @@ package com.ckja.realworld.model;
 
 import java.net.URI;
 import java.util.Objects;
-import com.ckja.realworld.model.InlineObject4ArticlesInner;
+import com.ckja.realworld.model.ArticlePreview;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -21,36 +21,36 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * InlineObject4
+ * MultipleArticlesResponse
  */
 
 @JsonTypeName("inline_object_4")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-03-01T21:06:09.127675+09:00[Asia/Tokyo]", comments = "Generator version: 7.20.0")
-public class InlineObject4 {
+public class MultipleArticlesResponse {
 
   @Valid
-  private List<@Valid InlineObject4ArticlesInner> articles = new ArrayList<>();
+  private List<@Valid ArticlePreview> articles = new ArrayList<>();
 
   private Integer articlesCount;
 
-  public InlineObject4() {
+  public MultipleArticlesResponse() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public InlineObject4(List<@Valid InlineObject4ArticlesInner> articles, Integer articlesCount) {
+  public MultipleArticlesResponse(List<@Valid ArticlePreview> articles, Integer articlesCount) {
     this.articles = articles;
     this.articlesCount = articlesCount;
   }
 
-  public InlineObject4 articles(List<@Valid InlineObject4ArticlesInner> articles) {
+  public MultipleArticlesResponse articles(List<@Valid ArticlePreview> articles) {
     this.articles = articles;
     return this;
   }
 
-  public InlineObject4 addArticlesItem(InlineObject4ArticlesInner articlesItem) {
+  public MultipleArticlesResponse addArticlesItem(ArticlePreview articlesItem) {
     if (this.articles == null) {
       this.articles = new ArrayList<>();
     }
@@ -65,15 +65,15 @@ public class InlineObject4 {
   @NotNull @Valid 
   @Schema(name = "articles", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("articles")
-  public List<@Valid InlineObject4ArticlesInner> getArticles() {
+  public List<@Valid ArticlePreview> getArticles() {
     return articles;
   }
 
-  public void setArticles(List<@Valid InlineObject4ArticlesInner> articles) {
+  public void setArticles(List<@Valid ArticlePreview> articles) {
     this.articles = articles;
   }
 
-  public InlineObject4 articlesCount(Integer articlesCount) {
+  public MultipleArticlesResponse articlesCount(Integer articlesCount) {
     this.articlesCount = articlesCount;
     return this;
   }
@@ -101,7 +101,7 @@ public class InlineObject4 {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineObject4 inlineObject4 = (InlineObject4) o;
+    MultipleArticlesResponse inlineObject4 = (MultipleArticlesResponse) o;
     return Objects.equals(this.articles, inlineObject4.articles) &&
         Objects.equals(this.articlesCount, inlineObject4.articlesCount);
   }
@@ -114,7 +114,7 @@ public class InlineObject4 {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineObject4 {\n");
+    sb.append("class MultipleArticlesResponse {\n");
     sb.append("    articles: ").append(toIndentedString(articles)).append("\n");
     sb.append("    articlesCount: ").append(toIndentedString(articlesCount)).append("\n");
     sb.append("}");

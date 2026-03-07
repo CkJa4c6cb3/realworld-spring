@@ -7,7 +7,7 @@ package com.ckja.realworld.api;
 
 import com.ckja.realworld.model.CreateUserRequest;
 import com.ckja.realworld.model.GenericErrorModel;
-import com.ckja.realworld.model.InlineObject6;
+import com.ckja.realworld.model.UserResponse;
 import com.ckja.realworld.model.LoginRequest;
 import com.ckja.realworld.model.UpdateCurrentUserRequest;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
@@ -62,7 +62,7 @@ public interface UserAndAuthenticationApi {
         tags = { "User and Authentication" },
         responses = {
             @ApiResponse(responseCode = "201", description = "User", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject6.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))
             }),
             @ApiResponse(responseCode = "409", description = "Conflict - resource already exists", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -78,14 +78,14 @@ public interface UserAndAuthenticationApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<InlineObject6> _createUser(
+    default ResponseEntity<UserResponse> _createUser(
         @Parameter(name = "body", description = "Details of the new user to register", required = true) @Valid @RequestBody CreateUserRequest body
     ) {
         return createUser(body);
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject6> createUser(CreateUserRequest body) {
+    default  ResponseEntity<UserResponse> createUser(CreateUserRequest body) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -126,7 +126,7 @@ public interface UserAndAuthenticationApi {
         tags = { "User and Authentication" },
         responses = {
             @ApiResponse(responseCode = "200", description = "User", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject6.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -144,14 +144,14 @@ public interface UserAndAuthenticationApi {
         value = UserAndAuthenticationApi.PATH_GET_CURRENT_USER,
         produces = { "application/json" }
     )
-    default ResponseEntity<InlineObject6> _getCurrentUser(
+    default ResponseEntity<UserResponse> _getCurrentUser(
         
     ) {
         return getCurrentUser();
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject6> getCurrentUser() {
+    default  ResponseEntity<UserResponse> getCurrentUser() {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -193,7 +193,7 @@ public interface UserAndAuthenticationApi {
         tags = { "User and Authentication" },
         responses = {
             @ApiResponse(responseCode = "200", description = "User", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject6.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -209,14 +209,14 @@ public interface UserAndAuthenticationApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<InlineObject6> _login(
+    default ResponseEntity<UserResponse> _login(
         @Parameter(name = "body", description = "Credentials to use", required = true) @Valid @RequestBody LoginRequest body
     ) {
         return login(body);
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject6> login(LoginRequest body) {
+    default  ResponseEntity<UserResponse> login(LoginRequest body) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -258,7 +258,7 @@ public interface UserAndAuthenticationApi {
         tags = { "User and Authentication" },
         responses = {
             @ApiResponse(responseCode = "200", description = "User", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject6.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -277,14 +277,14 @@ public interface UserAndAuthenticationApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<InlineObject6> _updateCurrentUser(
+    default ResponseEntity<UserResponse> _updateCurrentUser(
         @Parameter(name = "body", description = "User details to update. At least **one** field is required.", required = true) @Valid @RequestBody UpdateCurrentUserRequest body
     ) {
         return updateCurrentUser(body);
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject6> updateCurrentUser(UpdateCurrentUserRequest body) {
+    default  ResponseEntity<UserResponse> updateCurrentUser(UpdateCurrentUserRequest body) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

@@ -6,7 +6,7 @@
 package com.ckja.realworld.api;
 
 import com.ckja.realworld.model.GenericErrorModel;
-import com.ckja.realworld.model.InlineObject3;
+import com.ckja.realworld.model.SingleArticleResponse;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -61,7 +61,7 @@ public interface FavoritesApi {
         tags = { "Favorites" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Single article", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject3.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = SingleArticleResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -82,14 +82,14 @@ public interface FavoritesApi {
         value = FavoritesApi.PATH_CREATE_ARTICLE_FAVORITE,
         produces = { "application/json" }
     )
-    default ResponseEntity<InlineObject3> _createArticleFavorite(
+    default ResponseEntity<SingleArticleResponse> _createArticleFavorite(
         @NotNull @Parameter(name = "slug", description = "Slug of the article that you want to favorite", required = true, in = ParameterIn.PATH) @PathVariable("slug") String slug
     ) {
         return createArticleFavorite(slug);
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject3> createArticleFavorite(String slug) {
+    default  ResponseEntity<SingleArticleResponse> createArticleFavorite(String slug) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -137,7 +137,7 @@ public interface FavoritesApi {
         tags = { "Favorites" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Single article", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject3.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = SingleArticleResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -158,14 +158,14 @@ public interface FavoritesApi {
         value = FavoritesApi.PATH_DELETE_ARTICLE_FAVORITE,
         produces = { "application/json" }
     )
-    default ResponseEntity<InlineObject3> _deleteArticleFavorite(
+    default ResponseEntity<SingleArticleResponse> _deleteArticleFavorite(
         @NotNull @Parameter(name = "slug", description = "Slug of the article that you want to unfavorite", required = true, in = ParameterIn.PATH) @PathVariable("slug") String slug
     ) {
         return deleteArticleFavorite(slug);
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject3> deleteArticleFavorite(String slug) {
+    default  ResponseEntity<SingleArticleResponse> deleteArticleFavorite(String slug) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

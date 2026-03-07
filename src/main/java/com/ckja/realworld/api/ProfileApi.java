@@ -6,7 +6,7 @@
 package com.ckja.realworld.api;
 
 import com.ckja.realworld.model.GenericErrorModel;
-import com.ckja.realworld.model.InlineObject5;
+import com.ckja.realworld.model.ProfileResponse;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -61,7 +61,7 @@ public interface ProfileApi {
         tags = { "Profile" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Profile", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject5.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ProfileResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -82,14 +82,14 @@ public interface ProfileApi {
         value = ProfileApi.PATH_FOLLOW_USER_BY_USERNAME,
         produces = { "application/json" }
     )
-    default ResponseEntity<InlineObject5> _followUserByUsername(
+    default ResponseEntity<ProfileResponse> _followUserByUsername(
         @NotNull @Parameter(name = "username", description = "Username of the profile you want to follow", required = true, in = ParameterIn.PATH) @PathVariable("username") String username
     ) {
         return followUserByUsername(username);
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject5> followUserByUsername(String username) {
+    default  ResponseEntity<ProfileResponse> followUserByUsername(String username) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -137,7 +137,7 @@ public interface ProfileApi {
         tags = { "Profile" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Profile", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject5.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ProfileResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -155,14 +155,14 @@ public interface ProfileApi {
         value = ProfileApi.PATH_GET_PROFILE_BY_USERNAME,
         produces = { "application/json" }
     )
-    default ResponseEntity<InlineObject5> _getProfileByUsername(
+    default ResponseEntity<ProfileResponse> _getProfileByUsername(
         @NotNull @Parameter(name = "username", description = "Username of the profile to get", required = true, in = ParameterIn.PATH) @PathVariable("username") String username
     ) {
         return getProfileByUsername(username);
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject5> getProfileByUsername(String username) {
+    default  ResponseEntity<ProfileResponse> getProfileByUsername(String username) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -210,7 +210,7 @@ public interface ProfileApi {
         tags = { "Profile" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Profile", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InlineObject5.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ProfileResponse.class))
             }),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = GenericErrorModel.class))
@@ -231,14 +231,14 @@ public interface ProfileApi {
         value = ProfileApi.PATH_UNFOLLOW_USER_BY_USERNAME,
         produces = { "application/json" }
     )
-    default ResponseEntity<InlineObject5> _unfollowUserByUsername(
+    default ResponseEntity<ProfileResponse> _unfollowUserByUsername(
         @NotNull @Parameter(name = "username", description = "Username of the profile you want to unfollow", required = true, in = ParameterIn.PATH) @PathVariable("username") String username
     ) {
         return unfollowUserByUsername(username);
     }
 
     // Override this method
-    default  ResponseEntity<InlineObject5> unfollowUserByUsername(String username) {
+    default  ResponseEntity<ProfileResponse> unfollowUserByUsername(String username) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

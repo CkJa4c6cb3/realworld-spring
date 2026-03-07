@@ -18,27 +18,27 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * InlineObject6
+ * UserResponse
  */
 
 @JsonTypeName("inline_object_6")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-03-01T21:06:09.127675+09:00[Asia/Tokyo]", comments = "Generator version: 7.20.0")
-public class InlineObject6 {
+public class UserResponse {
 
   private User user;
 
-  public InlineObject6() {
+  public UserResponse() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public InlineObject6(User user) {
+  public UserResponse(User user) {
     this.user = user;
   }
 
-  public InlineObject6 user(User user) {
+  public UserResponse user(User user) {
     this.user = user;
     return this;
   }
@@ -66,7 +66,7 @@ public class InlineObject6 {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineObject6 inlineObject6 = (InlineObject6) o;
+    UserResponse inlineObject6 = (UserResponse) o;
     return Objects.equals(this.user, inlineObject6.user);
   }
 
@@ -78,7 +78,7 @@ public class InlineObject6 {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineObject6 {\n");
+    sb.append("class UserResponse {\n");
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("}");
     return sb.toString();

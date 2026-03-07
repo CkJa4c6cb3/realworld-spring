@@ -23,12 +23,12 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * InlineObject4ArticlesInner
+ * ArticlePreview
  */
 
 @JsonTypeName("inline_object_4_articles_inner")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-03-01T21:06:09.127675+09:00[Asia/Tokyo]", comments = "Generator version: 7.20.0")
-public class InlineObject4ArticlesInner {
+public class ArticlePreview {
 
   private String slug;
 
@@ -51,14 +51,14 @@ public class InlineObject4ArticlesInner {
 
   private Profile author;
 
-  public InlineObject4ArticlesInner() {
+  public ArticlePreview() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public InlineObject4ArticlesInner(String slug, String title, String description, List<String> tagList, OffsetDateTime createdAt, OffsetDateTime updatedAt, Boolean favorited, Integer favoritesCount, Profile author) {
+  public ArticlePreview(String slug, String title, String description, List<String> tagList, OffsetDateTime createdAt, OffsetDateTime updatedAt, Boolean favorited, Integer favoritesCount, Profile author) {
     this.slug = slug;
     this.title = title;
     this.description = description;
@@ -70,7 +70,7 @@ public class InlineObject4ArticlesInner {
     this.author = author;
   }
 
-  public InlineObject4ArticlesInner slug(String slug) {
+  public ArticlePreview slug(String slug) {
     this.slug = slug;
     return this;
   }
@@ -90,7 +90,7 @@ public class InlineObject4ArticlesInner {
     this.slug = slug;
   }
 
-  public InlineObject4ArticlesInner title(String title) {
+  public ArticlePreview title(String title) {
     this.title = title;
     return this;
   }
@@ -110,7 +110,7 @@ public class InlineObject4ArticlesInner {
     this.title = title;
   }
 
-  public InlineObject4ArticlesInner description(String description) {
+  public ArticlePreview description(String description) {
     this.description = description;
     return this;
   }
@@ -130,12 +130,12 @@ public class InlineObject4ArticlesInner {
     this.description = description;
   }
 
-  public InlineObject4ArticlesInner tagList(List<String> tagList) {
+  public ArticlePreview tagList(List<String> tagList) {
     this.tagList = tagList;
     return this;
   }
 
-  public InlineObject4ArticlesInner addTagListItem(String tagListItem) {
+  public ArticlePreview addTagListItem(String tagListItem) {
     if (this.tagList == null) {
       this.tagList = new ArrayList<>();
     }
@@ -158,7 +158,7 @@ public class InlineObject4ArticlesInner {
     this.tagList = tagList;
   }
 
-  public InlineObject4ArticlesInner createdAt(OffsetDateTime createdAt) {
+  public ArticlePreview createdAt(OffsetDateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -178,7 +178,7 @@ public class InlineObject4ArticlesInner {
     this.createdAt = createdAt;
   }
 
-  public InlineObject4ArticlesInner updatedAt(OffsetDateTime updatedAt) {
+  public ArticlePreview updatedAt(OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
@@ -198,7 +198,7 @@ public class InlineObject4ArticlesInner {
     this.updatedAt = updatedAt;
   }
 
-  public InlineObject4ArticlesInner favorited(Boolean favorited) {
+  public ArticlePreview favorited(Boolean favorited) {
     this.favorited = favorited;
     return this;
   }
@@ -218,7 +218,7 @@ public class InlineObject4ArticlesInner {
     this.favorited = favorited;
   }
 
-  public InlineObject4ArticlesInner favoritesCount(Integer favoritesCount) {
+  public ArticlePreview favoritesCount(Integer favoritesCount) {
     this.favoritesCount = favoritesCount;
     return this;
   }
@@ -238,7 +238,7 @@ public class InlineObject4ArticlesInner {
     this.favoritesCount = favoritesCount;
   }
 
-  public InlineObject4ArticlesInner author(Profile author) {
+  public ArticlePreview author(Profile author) {
     this.author = author;
     return this;
   }
@@ -266,7 +266,7 @@ public class InlineObject4ArticlesInner {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineObject4ArticlesInner inlineObject4ArticlesInner = (InlineObject4ArticlesInner) o;
+    ArticlePreview inlineObject4ArticlesInner = (ArticlePreview) o;
     return Objects.equals(this.slug, inlineObject4ArticlesInner.slug) &&
         Objects.equals(this.title, inlineObject4ArticlesInner.title) &&
         Objects.equals(this.description, inlineObject4ArticlesInner.description) &&
@@ -286,7 +286,7 @@ public class InlineObject4ArticlesInner {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineObject4ArticlesInner {\n");
+    sb.append("class ArticlePreview {\n");
     sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");

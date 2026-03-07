@@ -6,6 +6,9 @@ import com.ckja.realworld.model.Comment;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -18,44 +21,53 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * InlineObject1
+ * MultipleCommentsResponse
  */
 
-@JsonTypeName("inline_object_1")
+@JsonTypeName("inline_object_2")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-03-01T21:06:09.127675+09:00[Asia/Tokyo]", comments = "Generator version: 7.20.0")
-public class InlineObject1 {
+public class MultipleCommentsResponse {
 
-  private Comment comment;
+  @Valid
+  private List<@Valid Comment> comments = new ArrayList<>();
 
-  public InlineObject1() {
+  public MultipleCommentsResponse() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public InlineObject1(Comment comment) {
-    this.comment = comment;
+  public MultipleCommentsResponse(List<@Valid Comment> comments) {
+    this.comments = comments;
   }
 
-  public InlineObject1 comment(Comment comment) {
-    this.comment = comment;
+  public MultipleCommentsResponse comments(List<@Valid Comment> comments) {
+    this.comments = comments;
+    return this;
+  }
+
+  public MultipleCommentsResponse addCommentsItem(Comment commentsItem) {
+    if (this.comments == null) {
+      this.comments = new ArrayList<>();
+    }
+    this.comments.add(commentsItem);
     return this;
   }
 
   /**
-   * Get comment
-   * @return comment
+   * Get comments
+   * @return comments
    */
   @NotNull @Valid 
-  @Schema(name = "comment", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("comment")
-  public Comment getComment() {
-    return comment;
+  @Schema(name = "comments", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("comments")
+  public List<@Valid Comment> getComments() {
+    return comments;
   }
 
-  public void setComment(Comment comment) {
-    this.comment = comment;
+  public void setComments(List<@Valid Comment> comments) {
+    this.comments = comments;
   }
 
   @Override
@@ -66,20 +78,20 @@ public class InlineObject1 {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineObject1 inlineObject1 = (InlineObject1) o;
-    return Objects.equals(this.comment, inlineObject1.comment);
+    MultipleCommentsResponse inlineObject2 = (MultipleCommentsResponse) o;
+    return Objects.equals(this.comments, inlineObject2.comments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment);
+    return Objects.hash(comments);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineObject1 {\n");
-    sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
+    sb.append("class MultipleCommentsResponse {\n");
+    sb.append("    comments: ").append(toIndentedString(comments)).append("\n");
     sb.append("}");
     return sb.toString();
   }
