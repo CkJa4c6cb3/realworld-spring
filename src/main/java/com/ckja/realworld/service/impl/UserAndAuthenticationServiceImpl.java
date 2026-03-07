@@ -1,5 +1,6 @@
 package com.ckja.realworld.service.impl;
 
+import com.ckja.realworld.common.security.JwtTokenProvider;
 import com.ckja.realworld.common.util.PasswordEncodeUtil;
 import com.ckja.realworld.model.CreateUserRequest;
 import com.ckja.realworld.model.LoginRequest;
@@ -18,10 +19,13 @@ import org.springframework.web.server.ResponseStatusException;
 public class UserAndAuthenticationServiceImpl implements UserAndAuthenticationService {
 
   private final UserAndAuthenticationRepository userAndAuthenticationRepository;
+  private final JwtTokenProvider jwtTokenProvider;
 
   public UserAndAuthenticationServiceImpl(
-      UserAndAuthenticationRepository userAndAuthenticationRepository) {
+      UserAndAuthenticationRepository userAndAuthenticationRepository,
+      JwtTokenProvider jwtTokenProvider) {
     this.userAndAuthenticationRepository = userAndAuthenticationRepository;
+    this.jwtTokenProvider = jwtTokenProvider;
   }
 
   @Override
@@ -42,6 +46,7 @@ public class UserAndAuthenticationServiceImpl implements UserAndAuthenticationSe
 
     try {
       User createdUser = userAndAuthenticationRepository.createUser(email, username, hashedPassword);
+      createdUser.setToken(jwtTokenProvider.generateToken(createdUser.getEmail()));
       return ResponseEntity.status(HttpStatus.CREATED).body(new UserResponse(createdUser));
     } catch (DuplicateKeyException ex) {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "すでに存在するユーザーです", ex);
@@ -63,7 +68,9 @@ public class UserAndAuthenticationServiceImpl implements UserAndAuthenticationSe
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "メールアドレスまたはパスワードが間違っています");
     }
 
-    return ResponseEntity.ok(new UserResponse(users.get(0)));
+    User loginUser = users.get(0);
+    loginUser.setToken(jwtTokenProvider.generateToken(loginUser.getEmail()));
+    return ResponseEntity.ok(new UserResponse(loginUser));
   }
 
   private boolean isUserExist(List<User> users) {

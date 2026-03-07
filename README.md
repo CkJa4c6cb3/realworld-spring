@@ -104,3 +104,7 @@ mvn test
 
 mvn spring-boot:run
 curl http://localhost:8080/{path}
+
+## jwtトークン用secretの発行方法
+
+openssl rand -base64 64
