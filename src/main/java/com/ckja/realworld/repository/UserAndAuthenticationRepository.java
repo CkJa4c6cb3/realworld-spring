@@ -1,6 +1,7 @@
 package com.ckja.realworld.repository;
 
 import com.ckja.realworld.model.User;
+import java.util.ArrayList;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -53,5 +54,49 @@ public class UserAndAuthenticationRepository {
         "SELECT password FROM users WHERE email = ?",
         (rs, rowNum) -> rs.getString("password"),
         email);
+  }
+
+  public User updateUser(
+      String currentEmail,
+      String newEmail,
+      String newUsername,
+      String hashedPassword,
+      JsonNullable<String> bio,
+      JsonNullable<String> image) {
+    StringBuilder sql = new StringBuilder("UPDATE users SET ");
+    List<Object> params = new ArrayList<>();
+    List<String> fields = new ArrayList<>();
+
+    if (newEmail != null) {
+      fields.add("email = ?");
+      params.add(newEmail);
+    }
+    if (newUsername != null) {
+      fields.add("username = ?");
+      params.add(newUsername);
+    }
+    if (hashedPassword != null) {
+      fields.add("password = ?");
+      params.add(hashedPassword);
+    }
+    if (bio != null && bio.isPresent()) {
+      fields.add("bio = ?");
+      params.add(bio.get());
+    }
+    if (image != null && image.isPresent()) {
+      fields.add("image = ?");
+      params.add(image.get());
+    }
+
+    if (fields.isEmpty()) {
+      return getUserByEmail(currentEmail).get(0);
+    }
+
+    sql.append(String.join(", ", fields)).append(" WHERE email = ?");
+    params.add(currentEmail);
+    jdbcTemplate.update(sql.toString(), params.toArray());
+
+    String updatedEmail = newEmail != null ? newEmail : currentEmail;
+    return getUserByEmail(updatedEmail).get(0);
   }
 }
