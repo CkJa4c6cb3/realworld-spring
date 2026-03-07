@@ -2,6 +2,7 @@ package com.ckja.realworld.service.impl;
 
 import com.ckja.realworld.common.util.PasswordEncodeUtil;
 import com.ckja.realworld.model.CreateUserRequest;
+import com.ckja.realworld.model.LoginRequest;
 import com.ckja.realworld.model.User;
 import com.ckja.realworld.model.UserResponse;
 import com.ckja.realworld.repository.UserAndAuthenticationRepository;
@@ -45,6 +46,24 @@ public class UserAndAuthenticationServiceImpl implements UserAndAuthenticationSe
     } catch (DuplicateKeyException ex) {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "すでに存在するユーザーです", ex);
     }
+  }
+
+  @Override
+  public ResponseEntity<UserResponse> processLoginUser(LoginRequest body) {
+    String email = body.getUser().getEmail();
+    String rawPassword = body.getUser().getPassword();
+
+    List<User> users = userAndAuthenticationRepository.getUserByEmail(email);
+    if (!isUserExist(users)) {
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "メールアドレスまたはパスワードが間違っています");
+    }
+
+    List<String> encodedPasswords = userAndAuthenticationRepository.getPasswordByEmail(email);
+    if (encodedPasswords.isEmpty() || !PasswordEncodeUtil.matches(rawPassword, encodedPasswords.get(0))) {
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "メールアドレスまたはパスワードが間違っています");
+    }
+
+    return ResponseEntity.ok(new UserResponse(users.get(0)));
   }
 
   private boolean isUserExist(List<User> users) {

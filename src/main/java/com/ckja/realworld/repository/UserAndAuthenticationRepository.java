@@ -47,4 +47,11 @@ public class UserAndAuthenticationRepository {
         hashedPassword);
     return getUserByEmail(email).get(0);
   }
+
+  public List<String> getPasswordByEmail(String email) {
+    return jdbcTemplate.query(
+        "SELECT password FROM users WHERE email = ?",
+        (rs, rowNum) -> rs.getString("password"),
+        email);
+  }
 }
